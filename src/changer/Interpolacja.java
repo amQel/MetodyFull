@@ -1,17 +1,25 @@
 package changer;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 
 public class Interpolacja {
 
 
-	public static void main(String[] args) {
+	Interpolacja(double[] funkcja, double[] wartosci){
 		FunctionChanger changer = new FunctionChanger();
 
-		double[] fOdx = {3,1,0,0,-0.25};
-		double[] war = {0,0,1,2};
-		
+		double[] fOdx = funkcja;
+		double[] war = wartosci;
+		for (int i = 0; i < war.length; i++) {
+			System.out.print(" " + war[i]);
+		}
+		System.out.println("\n\n");
+		for (int i = 0; i < fOdx.length; i++) {
+			System.out.print(" " + fOdx[i]);
+		}
+		System.out.println("\n\n");
 		double[] po = changer.normalForm(fOdx,war);
 		Calka calka = new Calka(po);
 		
@@ -35,7 +43,11 @@ public static String wypiszWynik(double[] tablicaWFormieNormalnej, boolean cons)
 		
 		for (int i=tablicaWFormieNormalnej.length-1;i>1;i--){
 			
-			if(tablicaWFormieNormalnej[i]!=1.0) postacOgolna += tablicaWFormieNormalnej[i];
+			if(tablicaWFormieNormalnej[i]!=1.0) 
+				{
+				Double normalnaSkrocona=new BigDecimal(tablicaWFormieNormalnej[i]).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+				postacOgolna += normalnaSkrocona;
+				}
 			if(tablicaWFormieNormalnej[i-1]<0)
 				postacOgolna +=  "x^{" + i + "} ";
 			else
